@@ -1,0 +1,36 @@
+name: Daily NSE Data Update
+
+on:
+  schedule:
+    # Runs at 11:30 AM UTC (5:00 PM IST) every Monday-Friday
+    - cron: '30 11 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install yfinance pandas
+
+      - name: Run data updater script
+        run: python stock_updater.py
+
+      - name: Save data to GitHub folder
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/
+          git commit -m "Automated daily NSE data update" || exit 0
+          git push
