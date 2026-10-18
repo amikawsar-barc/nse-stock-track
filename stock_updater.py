@@ -79,7 +79,7 @@ def main():
             # Fetch market capitalization.
             try:
                 info = yf.Ticker(ticker).fast_info
-                market_caps[clean_sym] = info.get("market_cap", 0) or 0
+                market_caps[clean_sym] = info.get("marketCap")
             except Exception:
                 market_caps[clean_sym] = 0
 
