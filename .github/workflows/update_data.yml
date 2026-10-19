@@ -3,7 +3,7 @@ name: Daily NSE Data Update
 on:
   schedule:
     # Runs at 11:30 AM UTC (5:00 PM IST) every Monday-Friday
-    - cron: '30 11 * * 1-5'
+    - cron: '0 12 * * 5'
   workflow_dispatch:
 
 jobs:
