@@ -35,7 +35,7 @@ def main():
         return
 
     today = datetime.today()
-    three_years_ago = today - timedelta(days=3 * 365)
+    three_years_ago = today - timedelta(days=5 * 365)
 
     existing_files = [
         name for name in os.listdir("data")
@@ -49,7 +49,7 @@ def main():
         print("No significant existing data found. Performing initial full 3-year download...")
         start_date = three_years_ago.strftime("%Y-%m-%d")
 
-    end_date = today.strftime("%Y-%m-%d")
+    end_date = (today + timedelta(days=1)).strftime('%Y-%m-%d')  #today.strftime("%Y-%m-%d")
     batch_size = 100
     market_caps = {}
 
